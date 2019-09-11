@@ -26,7 +26,7 @@
         </fieldset>
         <div>
             <b-table striped hover :items="people" :fields='fields'>
-                <template v-slot:delete="data">
+                <template v-slot:cell(delete)="data">
                     <b-btn size="sm" @click="deletePerson(data.item.id)">Delete</b-btn>
                 </template>
             </b-table>
@@ -49,17 +49,19 @@ export default {
         name: '',
         email: ''
       },
-      fields: {
-        name: {
-          label: 'Name'
+      fields: [
+        {
+          key: 'name',
+          sortable: true
         },
-        email: {
-          label: 'Email'
+        {
+          key: 'email',
+          sortable: false
         },
-        delete: {
-          label: 'Delete'
+        {
+          key: 'delete'
         }
-      },
+      ],
       people: [{
         name: 'Jack',
         email: 'a@com.com'
