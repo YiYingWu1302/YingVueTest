@@ -1,4 +1,4 @@
 module.exports = {
-  publicPath: '/about/',
+  publicPath: '/',
   lintOnSave: false
 }
