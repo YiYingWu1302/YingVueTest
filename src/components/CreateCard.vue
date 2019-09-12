@@ -46,15 +46,16 @@
     <b-table outlined hover :items="people" :fields="fields" align="center">
       <template v-slot:cell(action)="data">
         <b-button @click="deletePerson(data.item.id)" class="mr-2" variant="danger">Delete</b-button>
-        <b-button @click="$bvModal.show('bv-modal-update')">Update</b-button>
+        <b-button @click="$bvModal.show('bv-modal-update'), selectedData = deepCopy(data.item)">Update</b-button>
       </template>
     </b-table>
     <b-modal id="bv-modal-update" title="Update member info" hide-footer centered>
-      <b-form-input class="mb-1" v-model="formData.name" placeholder="name"></b-form-input>
-      <b-form-input class="mb-1" v-model="formData.email" placeholder="email"></b-form-input>
-      <b-form-input class="mb-1" v-model="formData.sex" placeholder="sex"></b-form-input>
-      <b-form-input class="mb-1" v-model="formData.age" placeholder="age"></b-form-input>
-      <b-button @click="$bvModal.hide('bv-modal-update'), updatePerson(data.item.id)">Update</b-button>
+      Update member's info <br>
+      <b-form-input class="mb-1" v-model="selectedData.name" placeholder="name"></b-form-input>
+      <b-form-input class="mb-1" v-model="selectedData.email" placeholder="email"></b-form-input>
+      <b-form-input class="mb-1" v-model="selectedData.sex" placeholder="sex"></b-form-input>
+      <b-form-input class="mb-1" v-model="selectedData.age" placeholder="age"></b-form-input>
+      <b-button @click="$bvModal.hide('bv-modal-update'), updatePerson(selectedData.id)">Update</b-button>
     </b-modal>
   </div>
 </template>
@@ -74,6 +75,7 @@ export default {
   },
   data () {
     return {
+      selectedData: {},
       formData: {
         id: null,
         name: null,
@@ -115,7 +117,7 @@ export default {
       }).catch((error) => console.log(error))
     },
     updatePerson: function (index) {
-      this.$ajax.put(UPDATE_USER + index, this.formData).then((res) => {
+      this.$ajax.put(UPDATE_USER + index, this.selectedData).then((res) => {
         this.getPersons()
       })
     },
@@ -128,6 +130,9 @@ export default {
     },
     resetForm: function () {
       this.formData = { id: null, name: null, email: null, sex: null, age: null }
+    },
+    deepCopy: function (data) {
+      return Object.assign({}, data)
     }
   },
   beforeMount: function () {
