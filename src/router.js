@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Home from './views/Home.vue'
-import Hello from './views/Hello.vue'
+import Members from './views/Members.vue'
 
 Vue.use(Router)
 
@@ -9,12 +9,13 @@ export default new Router({
   routes: [
     {
       path: '/',
-      redirect: '/hello'
+      name: 'home',
+      component: Home
     },
     {
-      path: '/hello',
-      name: 'hello',
-      component: Hello
+      path: '/members',
+      name: 'members',
+      component: Members
     },
     {
       path: '/about',
