@@ -1,7 +1,7 @@
 <template>
-  <div class="create-person">
+  <div class="members">
     <img alt="Vue logo" src="../assets/logo.png">
-    <CreateCard description="Simple CRUD webpage with Vue.js example."/>
+    <create-card description="Simple CRUD webpage with Vue.js example."/>
   </div>
 </template>
 
@@ -10,7 +10,7 @@
 import CreateCard from '@/components/CreateCard.vue'
 
 export default {
-  name: 'create-card',
+  name: 'members',
   components: {
     CreateCard
   }
